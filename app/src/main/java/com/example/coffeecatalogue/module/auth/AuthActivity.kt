@@ -2,6 +2,7 @@ package com.example.coffeecatalogue.module.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.example.coffeecatalogue.R
 import com.example.coffeecatalogue.base.BaseActivity
 import com.example.coffeecatalogue.databinding.ActivityAuthBinding
@@ -17,8 +18,14 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>() {
     private fun initView() {
         with(getViewBinder()) {
             tvSubmit.setOnClickListener {
-                val intent = Intent(this@AuthActivity, CoffeeActivity::class.java)
-                startActivity(intent)
+                if (etPin.text.toString().isEmpty()) {
+                    Toast.makeText(this@AuthActivity, "Pin Tidak Boleh Kosong", Toast.LENGTH_SHORT).show()
+                } else if (etPin.text.toString() != "2022") {
+                    Toast.makeText(this@AuthActivity, "Pin Yang Anda Masukan Salah", Toast.LENGTH_SHORT).show()
+                } else {
+                    val intent = Intent(this@AuthActivity, CoffeeActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
     }
